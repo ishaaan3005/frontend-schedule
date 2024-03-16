@@ -42,7 +42,6 @@ const List = styled.ul`
   padding: 0;
 `;
 
-
 const TextArea = styled.textarea`
   padding: 10px;
   font-size: 16px;
@@ -110,7 +109,7 @@ const AppointmentList = () => {
     const fetchAppointments = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('http://localhost:5000/appointments');
+        const response = await fetch('https://backend-scheduling-assgnment.onrender.com/appointments');
         if (response.ok) {
           const data = await response.json();
           const sortedAppointments = data.sort((a, b) => new Date(a.time) - new Date(b.time));
@@ -141,7 +140,7 @@ const AppointmentList = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/appointments/${id}`, {
+      const response = await fetch(`https://backend-scheduling-assgnment.onrender.com/appointments/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {
