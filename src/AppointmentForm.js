@@ -67,6 +67,8 @@ const Message = styled.div`
   font-size: 14px;
 `;
 
+const BASE_URL = 'https://backend-scheduling-assgnment.onrender.com/';
+
 const AppointmentForm = () => {
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
@@ -84,7 +86,7 @@ const AppointmentForm = () => {
   const fetchAppointments = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/appointments');
+      const response = await axios.get(`${BASE_URL}/appointments`);
       setAppointments(response.data);
     } catch (error) {
       setError('Error fetching appointments');
@@ -102,11 +104,11 @@ const AppointmentForm = () => {
 
     try {
       if (editingAppointmentId) {
-        await axios.put(`http://localhost:5000/appointments/${editingAppointmentId}`, { name, time, reason });
+        await axios.put(`${BASE_URL}/appointments/${editingAppointmentId}`, { name, time, reason });
         setEditingAppointmentId(null);
         setSuccessMessage('Appointment updated successfully');
       } else {
-        await axios.post('http://localhost:5000/appointments', { name, time, reason });
+        await axios.post(`${BASE_URL}/appointments`, { name, time, reason });
         setSuccessMessage('Appointment booked successfully');
       }
       fetchAppointments();
@@ -127,7 +129,7 @@ const AppointmentForm = () => {
 
   const handleDeleteAppointment = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/appointments/${id}`);
+      await axios.delete(`${BASE_URL}/appointments/${id}`);
       fetchAppointments();
       setSuccessMessage('Appointment deleted successfully');
     } catch (error) {
